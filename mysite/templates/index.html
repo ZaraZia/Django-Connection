@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        Django
+    </title>
+</head>
+
+<body>
+    <h1>Hello World</h1>>
+</body>
+
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Chatbot Daraz</title>-->
+<!--    <style>-->
+<!--        /* Use a sans-serif font for better readability */-->
+<!--        body {-->
+<!--            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;-->
+<!--            background-image: url("https://t4.ftcdn.net/jpg/02/28/23/43/360_F_228234335_RrmgPkZW1EyMDfLqwfHKIgkeXbGNi6T0.jpg");-->
+<!--            background-repeat: no-repeat;-->
+<!--            background-size: cover;-->
+<!--            color: #fff;-->
+<!--            text-align: center;-->
+<!--        }-->
+
+<!--        /* Use a larger font size for headings */-->
+<!--        h1, h2, h3 {-->
+<!--            font-size: 2rem;-->
+<!--            margin: 0;-->
+<!--        }-->
+
+<!--        /* Use a container element to center the content */-->
+<!--        .container {-->
+<!--            max-width: 800px;-->
+<!--            margin: 0 auto;-->
+<!--            padding: 20px;-->
+<!--            background-color: #fff;-->
+<!--            border-radius: 10px;-->
+<!--            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);-->
+<!--        }-->
+
+<!--        /* Use a gradient background for the chat window */-->
+<!--        .chat-window {-->
+<!--            height: 400px;-->
+<!--            overflow-y: scroll;-->
+<!--            padding: 10px;-->
+<!--            margin-bottom: 40px;-->
+<!--            background: linear-gradient(to bottom, #f6f6f6, #f2f2f2);-->
+<!--            border-radius: 5px;-->
+<!--            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);-->
+<!--        }-->
+
+<!--        /* Use a different font color for bot messages */-->
+<!--        .bot-message {-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--            margin-bottom: 20px;-->
+<!--            margin-top: 20px;-->
+<!--        }-->
+
+<!--            .bot-message p {-->
+<!--                background-color: #f18852;-->
+<!--                border-radius: 20px;-->
+<!--                padding: 20px;-->
+<!--                margin-left: 0px;-->
+<!--                /*margin-right: -248px;*/-->
+<!--                text-align: left;-->
+<!--                color: #333;-->
+<!--            }-->
+
+<!--        /* Use a different font color for user messages */-->
+<!--        .user-message {-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--            justify-content: flex-end;-->
+<!--            margin-bottom: 20px;-->
+<!--            margin-top: 20px;-->
+<!--        }-->
+
+<!--            .user-message p {-->
+<!--                background-color: #f6d240;-->
+<!--                border-radius: 20px;-->
+<!--                padding: 18px;-->
+<!--                margin-right: 0px;-->
+<!--                margin-left: 5px;-->
+<!--                color: #333;-->
+<!--                text-align: right;-->
+<!--            }-->
+
+
+<!--        .input-container input[type="text"] {-->
+<!--            background-color: #f2f2f2;-->
+<!--            border: none;-->
+<!--            padding: 13px;-->
+<!--            border-radius: 5px;-->
+<!--            margin-right: 10px;-->
+<!--            margin-top: 2px;-->
+<!--            font-size: 16px;-->
+<!--            color: #333;-->
+<!--            outline: none;-->
+<!--            width: 400px;-->
+<!--        }-->
+
+<!--        /* Use a different color for the submit button */-->
+<!--        .input-container input[type="submit"] {-->
+<!--            background-color: #e84b56;-->
+<!--            color: #fff;-->
+<!--            border: none;-->
+<!--            padding: 10px 20px;-->
+<!--            border-radius: 5px;-->
+<!--            cursor: pointer;-->
+<!--            font-size: 16px;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+
+<!--<body>-->
+<!--    <div class="container">-->
+<!--        <div class="chat-window">-->
+<!--            <div id="chat-history"></div>-->
+<!--        </div>-->
+
+<!--        <form class="input-container" method="post">-->
+<!--            <input type="text" name="user_input" id="user-input" placeholder="Enter prompt">-->
+<!--            <input type="submit" value="Send">-->
+<!--        </form>-->
+
+<!--    </div>-->
+
+<!--    <script>-->
+<!--        const chatHistory = []; // array to store chat history-->
+
+<!--        // function to add a new message to the chat history-->
+<!--        function addMessageToHistory(sender, message) {-->
+<!--            chatHistory.push({ sender, message }); // add new message to chat history-->
+<!--            const chatHistoryDiv = document.getElementById("chat-history"); // get chat history element-->
+<!--            const newMessageDiv = document.createElement("div"); // create a new div for the message-->
+<!--            newMessageDiv.classList.add(`${sender}-message`); // add sender class to the div-->
+<!--            const messageParagraph = document.createElement("p"); // create a paragraph element for the message-->
+<!--            messageParagraph.textContent = message; // set the message text content-->
+<!--            newMessageDiv.appendChild(messageParagraph); // add the message paragraph to the message div-->
+<!--            chatHistoryDiv.appendChild(newMessageDiv); // add the message div to the chat history-->
+<!--            chatHistoryDiv.scrollTop = chatHistoryDiv.scrollHeight; // scroll to the bottom of the chat history-->
+<!--        }-->
+
+<!--        // handle form submission-->
+<!--        const form = document.querySelector(".input-container");-->
+<!--        form.addEventListener("submit", (event) => {-->
+<!--            event.preventDefault(); // prevent default form submission behavior-->
+<!--            const userInput = document.getElementById("user-input");-->
+<!--            const userMessage = userInput.value.trim(); // get user message and trim whitespace-->
+<!--            if (userMessage !== "") { // check if the user message is not empty-->
+<!--                addMessageToHistory("user", userMessage); // add user message to chat history-->
+<!--                // Send user message to server and get bot response-->
+<!--                fetch("/", {-->
+<!--                    method: 'POST',-->
+<!--                    headers: {-->
+<!--                        'Content-Type': 'application/json'-->
+<!--                    },-->
+<!--                    body: JSON.stringify({-->
+<!--                        prompt: userMessage-->
+<!--                    })-->
+<!--                })-->
+<!--                    .then(response => response.json())-->
+<!--                    .then(data => {-->
+<!--                        const botMessage = data.response;-->
+<!--                        addMessageToHistory("bot", botMessage); // add bot response to chat history-->
+<!--                        userInput.value = ""; // clear user input after bot response has been added-->
+<!--                    })-->
+<!--                    .catch(error => console.error(error));-->
+<!--            }-->
+<!--        });-->
+<!--    </script>-->
+<!--</body>-->
+
+</html>
